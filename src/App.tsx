@@ -42,6 +42,7 @@ function App() {
               h="250px"
               bgColor="gray.800"
               borderRadius="10px"
+              _hover={{border: '2px solid white'}}
             >
               <Center>
                 <Text
