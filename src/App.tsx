@@ -1,6 +1,7 @@
 import { Box, Button, Center, Heading, SimpleGrid, Text, Flex } from "@chakra-ui/react"
 import { useEffect, useState } from "react";
 import { EmojiAttribute } from "./components/EmojiAttribute";
+import { SearchBar } from "./components/SearchBar";
 import { client } from "./services/emojiApi";
 
 interface Emoji {
@@ -35,6 +36,9 @@ function App() {
         <Heading>Welcome to your Emoji cheatsheet! 😄</Heading>
       </Center>
       <Center>
+        <SearchBar />
+      </Center>
+      <Center>
         <SimpleGrid w="90%" columns={3} spacing={10}>
           {emojis.map((emoji) => (
             <Box
@@ -42,7 +46,7 @@ function App() {
               h="250px"
               bgColor="gray.800"
               borderRadius="10px"
-              _hover={{border: '2px solid white'}}
+              _hover={{ border: "2px solid #38B2AC" }}
             >
               <Center>
                 <Text
@@ -54,7 +58,10 @@ function App() {
                 />
               </Center>
               <EmojiAttribute attribute={emoji.name} attributeType="Name" />
-              <EmojiAttribute attribute={emoji.category} attributeType="Category" />
+              <EmojiAttribute
+                attribute={emoji.category}
+                attributeType="Category"
+              />
             </Box>
           ))}
         </SimpleGrid>
