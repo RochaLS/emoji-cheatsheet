@@ -1,5 +1,6 @@
 import { Box, Button, Center, Heading, SimpleGrid, Text, Flex } from "@chakra-ui/react"
 import { useEffect, useState } from "react";
+import { EmojiAttribute } from "./components/EmojiAttribute";
 import { client } from "./services/emojiApi";
 
 interface Emoji {
@@ -36,17 +37,23 @@ function App() {
       <Center>
         <SimpleGrid w="90%" columns={3} spacing={10}>
           {emojis.map((emoji) => (
-            <Box key={emoji.name} h="250px" bgColor="gray.800">
+            <Box
+              key={emoji.name}
+              h="250px"
+              bgColor="gray.800"
+              borderRadius="10px"
+            >
               <Center>
                 <Text
                   dangerouslySetInnerHTML={{
                     __html: `${emoji.htmlCode}`,
                   }}
-                  fontSize="6xl"
+                  fontSize="5xl"
                   mt={5}
                 />
               </Center>
-              <Text m={3} fontSize="lg" textAlign="center">{emoji.name}</Text>
+              <EmojiAttribute attribute={emoji.name} attributeType="Name" />
+              <EmojiAttribute attribute={emoji.category} attributeType="Category" />
             </Box>
           ))}
         </SimpleGrid>
