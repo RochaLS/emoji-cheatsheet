@@ -5,8 +5,6 @@ import {
   SimpleGrid,
   Text,
   Flex,
-  Button,
-  HStack,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { CategorySection } from "./components/CategorySection";
@@ -16,7 +14,7 @@ import { EmojiAttribute } from "./components/EmojiAttribute";
 import { SearchBar } from "./components/SearchBar";
 import { client } from "./services/emojiApi";
 
-interface Emoji {
+export interface Emoji {
   name: string;
   category: string;
   group: string;
@@ -24,10 +22,14 @@ interface Emoji {
   unicode: string[];
 }
 
+interface GetDataParams {
+  category: string;
+}
+
 function App() {
   const [emojis, setEmojis] = useState<Emoji[]>([]);
 
-  async function getData() {
+  async function getData(category?: GetDataParams ) {
     let emojis: Emoji[] = [];
     await client.get("all").then((response) => {
       for (let i = 0; i < 10; i++) {
@@ -36,6 +38,7 @@ function App() {
       setEmojis(emojis);
     });
   }
+
 
   useEffect(() => {
     getData();
