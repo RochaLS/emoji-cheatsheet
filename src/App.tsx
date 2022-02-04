@@ -69,7 +69,7 @@ function App() {
         </SimpleGrid>
       </Center>
       <Center>
-        <SimpleGrid w="90%" columns={[1, 3, 4]} spacing={5}>
+        <SimpleGrid w="90%" columns={[1, 3, 3]} spacing={5}>
           {emojis.map((emoji) => (
             <Box
               key={emoji.name}
