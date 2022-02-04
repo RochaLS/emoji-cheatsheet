@@ -1,0 +1,13 @@
+import { Box, Text} from "@chakra-ui/react";
+
+interface CategorySectionProps {
+  category: string;
+}
+
+export function CategorySection(props: CategorySectionProps) {
+  return (
+    <Box m={3} w="50%" bgColor="gray.800" color="#319795" border="1px solid #319795" borderRadius="5px">
+      <Text textAlign="center">{props.category}</Text>
+    </Box>
+  )
+}
