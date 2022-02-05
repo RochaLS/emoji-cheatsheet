@@ -1,9 +1,8 @@
-import { Box, Center, Heading, SimpleGrid, Text, Flex } from "@chakra-ui/react";
+import { Center, Heading, SimpleGrid, Text, Flex } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
-import { CategorySection } from "./components/CategorySection";
 import { CategoryTagButton } from "./components/CategoryTagButton";
-import { CopyButton } from "./components/CopyButton";
-import { EmojiAttribute } from "./components/EmojiAttribute";
+import { Emojis } from "./components/Emojis";
+import { Pagination } from "./components/Pagination";
 import { SearchBar } from "./components/SearchBar";
 import { client } from "./services/emojiApi";
 
@@ -17,12 +16,15 @@ export interface Emoji {
 
 function App() {
   const [emojis, setEmojis] = useState<Emoji[]>([]);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [itemsPerPage, setItemsPerPage] = useState<number>(50);
+
 
   async function getData(category: string) {
     category = category === "all" ? "all" : `all/category_${category}`;
     let emojis: Emoji[] = [];
     await client.get(category).then((response) => {
-      for (let i = 0; i < 10; i++) {
+      for (let i = 0; i < response.data.length; i++) {
         emojis.push(response.data[i]);
       }
       setEmojis(emojis);
@@ -30,10 +32,18 @@ function App() {
     console.log("here");
   }
 
+  // Change page
+  const paginate = (page: number) => setCurrentPage(page)
+
   useEffect(() => {
     getData("all");
     console.log("here");
   }, []);
+
+  // Get current emojis
+  const indexOfLastEmoji = currentPage * itemsPerPage;
+  const indexOfFirstEmoji = indexOfLastEmoji - itemsPerPage;
+  const currentEmojis = emojis.slice(indexOfFirstEmoji, indexOfLastEmoji)
 
   const categories = [
     {
@@ -86,39 +96,10 @@ function App() {
         </SimpleGrid>
       </Center>
       <Center>
-        <SimpleGrid w="90%" columns={[1, 1, 2, 4]} spacing={5}>
-          {emojis.map((emoji) => (
-            <Box
-              key={emoji.name}
-              h="250px"
-              bgColor="gray.800"
-              borderRadius="10px"
-              _hover={{ border: "2px solid #38B2AC" }}
-              m={[1, 3, 5]}
-            >
-              <Flex mr={2} mt={2} justify="space-between">
-                <CategorySection category={emoji.category} />
-                <CopyButton />
-              </Flex>
-
-              <Center>
-                <Text
-                  dangerouslySetInnerHTML={{
-                    __html: `${emoji.htmlCode}`,
-                  }}
-                  fontSize="5xl"
-                />
-              </Center>
-              <Box mb={10}>
-                <EmojiAttribute attribute={emoji.name} attributeType="Name" />
-                <EmojiAttribute
-                  attribute={emoji.htmlCode[0]}
-                  attributeType="HTML code"
-                />
-              </Box>
-            </Box>
-          ))}
-        </SimpleGrid>
+       <Emojis emojis={currentEmojis}/>
+      </Center>
+      <Center>
+        <Pagination itemsPerPage={itemsPerPage} totalItems={emojis.length} paginate={paginate}/>
       </Center>
     </>
   );
