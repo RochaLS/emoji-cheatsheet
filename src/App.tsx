@@ -22,37 +22,61 @@ export interface Emoji {
   unicode: string[];
 }
 
-interface GetDataParams {
-  category: string;
-}
 
 function App() {
   const [emojis, setEmojis] = useState<Emoji[]>([]);
 
-  async function getData(category?: GetDataParams ) {
+  async function getData(category: string) {
+    category = (category === "all") ? "all" : `all/category_${category}`
     let emojis: Emoji[] = [];
-    await client.get("all").then((response) => {
+    await client.get(category).then((response) => {
       for (let i = 0; i < 10; i++) {
         emojis.push(response.data[i]);
       }
       setEmojis(emojis);
     });
+    console.log('here')
   }
 
 
   useEffect(() => {
-    getData();
-  });
+    getData("all");
+    console.log("here")
+  }, []);
 
   const categories = [
-    "Smileys / people",
-    "Animals / nature",
-    "Food and drink",
-    "Travel and places",
-    "Activites",
-    "Objects",
-    "Symbols",
-    "Flags",
+    {
+      name: "smileys_and_people",
+      displayName: "Smileys / People",
+    },
+    {
+      name: "animals_and_nature",
+      displayName: "Animals / Nature",
+    },
+    {
+      name: "food_and_drink",
+      displayName: "Food and drink",
+    },
+    {
+      name: "travel_and_places",
+      displayName: "Travel / Places",
+    },
+    {
+      name: "activities",
+      displayName: "Acrivities",
+    },
+    {
+      name: "objects",
+      displayName: "Objects",
+    },
+    {
+      name: "symbols",
+      displayName: "Symbols",
+    },
+    {
+      name: "flags",
+      displayName: "Flags",
+    },
   ];
 
   return (
@@ -65,7 +89,7 @@ function App() {
       <Center flexDirection="column">
         <SearchBar />
         <SimpleGrid m={6} columns={[3, 3, 4, 8]} spacing={3}>
-          {categories.map(category => <CategoryTagButton name={category} />)}
+          {categories.map(category => <CategoryTagButton getData={getData} category={category} />)}
         </SimpleGrid>
       </Center>
       <Center>

@@ -2,16 +2,22 @@ import { Button, useBreakpointValue } from "@chakra-ui/react";
 import { Emoji } from "../App";
 
 interface CategoryTagButtonProps {
-  name: string;
-  // getData: (arg0?: string) => Promise<void>;
+  category: { name: string; displayName: string };
+  getData: (category: string) => Promise<void>;
 }
 
-
-
 export function CategoryTagButton(props: CategoryTagButtonProps) {
-
+  const { category, getData } = props;
   const size = useBreakpointValue({ base: "xs", md: "md" });
+
   return (
-    <Button size={size} colorScheme="teal" variant="outline">{props.name}</Button>
-  )
+    <Button
+      size={size}
+      colorScheme="teal"
+      variant="outline"
+      onClick={() => getData(category.name)}
+    >
+      {category.displayName}
+    </Button>
+  );
 }
