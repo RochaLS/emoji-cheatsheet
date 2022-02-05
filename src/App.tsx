@@ -45,8 +45,8 @@ function App() {
   });
 
   const categories = [
-    "Smileys and people",
-    "Animals and nature",
+    "Smileys / people",
+    "Animals / nature",
     "Food and drink",
     "Travel and places",
     "Activites",
@@ -64,12 +64,12 @@ function App() {
       </Center>
       <Center flexDirection="column">
         <SearchBar />
-        <SimpleGrid m={6} columns={[3,5,8]} spacing={3}>
+        <SimpleGrid m={6} columns={[3, 3, 4, 8]} spacing={3}>
           {categories.map(category => <CategoryTagButton name={category} />)}
         </SimpleGrid>
       </Center>
       <Center>
-        <SimpleGrid w="90%" columns={[1, 3, 3]} spacing={5}>
+        <SimpleGrid w="90%" columns={[1, 1, 2, 4]} spacing={5}>
           {emojis.map((emoji) => (
             <Box
               key={emoji.name}
