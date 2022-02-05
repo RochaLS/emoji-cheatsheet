@@ -1,11 +1,4 @@
-import {
-  Box,
-  Center,
-  Heading,
-  SimpleGrid,
-  Text,
-  Flex,
-} from "@chakra-ui/react";
+import { Box, Center, Heading, SimpleGrid, Text, Flex } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { CategorySection } from "./components/CategorySection";
 import { CategoryTagButton } from "./components/CategoryTagButton";
@@ -22,12 +15,11 @@ export interface Emoji {
   unicode: string[];
 }
 
-
 function App() {
   const [emojis, setEmojis] = useState<Emoji[]>([]);
 
   async function getData(category: string) {
-    category = (category === "all") ? "all" : `all/category_${category}`
+    category = category === "all" ? "all" : `all/category_${category}`;
     let emojis: Emoji[] = [];
     await client.get(category).then((response) => {
       for (let i = 0; i < 10; i++) {
@@ -35,13 +27,12 @@ function App() {
       }
       setEmojis(emojis);
     });
-    console.log('here')
+    console.log("here");
   }
-
 
   useEffect(() => {
     getData("all");
-    console.log("here")
+    console.log("here");
   }, []);
 
   const categories = [
@@ -63,7 +54,7 @@ function App() {
     },
     {
       name: "activities",
-      displayName: "Acrivities",
+      displayName: "Activities",
     },
     {
       name: "objects",
@@ -89,7 +80,9 @@ function App() {
       <Center flexDirection="column">
         <SearchBar />
         <SimpleGrid m={6} columns={[3, 3, 4, 8]} spacing={3}>
-          {categories.map(category => <CategoryTagButton getData={getData} category={category} />)}
+          {categories.map((category) => (
+            <CategoryTagButton getData={getData} category={category} />
+          ))}
         </SimpleGrid>
       </Center>
       <Center>
@@ -101,7 +94,7 @@ function App() {
               bgColor="gray.800"
               borderRadius="10px"
               _hover={{ border: "2px solid #38B2AC" }}
-              m={[1,3,5]}
+              m={[1, 3, 5]}
             >
               <Flex mr={2} mt={2} justify="space-between">
                 <CategorySection category={emoji.category} />

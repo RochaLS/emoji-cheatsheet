@@ -1,5 +1,4 @@
 import { Button, useBreakpointValue } from "@chakra-ui/react";
-import { Emoji } from "../App";
 
 interface CategoryTagButtonProps {
   category: { name: string; displayName: string };
