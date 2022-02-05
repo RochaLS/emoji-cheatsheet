@@ -19,7 +19,7 @@ export function Pagination(props: PaginationProps) {
   return (
     <SimpleGrid m={10} spacing={3} columns={[7, 7, 12, pageNumbers.length]}>
       {pageNumbers.map((num) => (
-        <Button onClick={() => paginate(num)} colorScheme="teal" size="sm">
+        <Button key={num} onClick={() => paginate(num)} colorScheme="teal" size="sm">
           {num}
         </Button>
       ))}

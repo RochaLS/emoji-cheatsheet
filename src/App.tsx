@@ -91,7 +91,7 @@ function App() {
         <SearchBar />
         <SimpleGrid m={6} columns={[3, 3, 4, 8]} spacing={3}>
           {categories.map((category) => (
-            <CategoryTagButton getData={getData} category={category} />
+            <CategoryTagButton key={category.name} getData={getData} category={category} />
           ))}
         </SimpleGrid>
       </Center>
