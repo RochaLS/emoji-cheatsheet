@@ -16,9 +16,9 @@ export interface Emoji {
 
 function App() {
   const [emojis, setEmojis] = useState<Emoji[]>([]);
+  const [filteredEmojis, setFilteredEmojis] = useState<Emoji[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [itemsPerPage, setItemsPerPage] = useState<number>(50);
-
 
   async function getData(category: string) {
     category = category === "all" ? "all" : `all/category_${category}`;
@@ -32,8 +32,20 @@ function App() {
     console.log("here");
   }
 
+  function getSearchBarValueAndFilter(value: string) {
+    if (value !== "") {
+      console.log(emojis.length)
+      const filteredEmojis = emojis.filter((emoji) =>
+        emoji.name.includes(value)
+      );
+      setFilteredEmojis(filteredEmojis);
+    } else {
+      setFilteredEmojis([]); // Resseting filtered emojis
+    }
+  }
+
   // Change page
-  const paginate = (page: number) => setCurrentPage(page)
+  const paginate = (page: number) => setCurrentPage(page);
 
   useEffect(() => {
     getData("all");
@@ -43,9 +55,21 @@ function App() {
   // Get current emojis
   const indexOfLastEmoji = currentPage * itemsPerPage;
   const indexOfFirstEmoji = indexOfLastEmoji - itemsPerPage;
-  const currentEmojis = emojis.slice(indexOfFirstEmoji, indexOfLastEmoji)
+
+  // Checking if the search bar has a value, if yes assign the filtered emojis array so we render the right results.
+  // A Copy of emojis is necessary because when filtering the array we are setting the emojis state as well.
+  const currentEmojis =
+    filteredEmojis.length != 0
+      ? filteredEmojis.slice(indexOfFirstEmoji, indexOfLastEmoji)
+      : emojis.slice(indexOfFirstEmoji, indexOfLastEmoji);
+
+  const totalItems = filteredEmojis.length != 0 ? filteredEmojis.length : emojis.length;
 
   const categories = [
+    {
+      name: "all",
+      displayName: "All",
+    },
     {
       name: "smileys_and_people",
       displayName: "Smileys / People",
@@ -88,18 +112,26 @@ function App() {
         </Heading>
       </Center>
       <Center flexDirection="column">
-        <SearchBar />
-        <SimpleGrid m={6} columns={[3, 3, 4, 8]} spacing={3}>
+        <SearchBar getSearchBarValueAndFilter={getSearchBarValueAndFilter} />
+        <SimpleGrid m={6} columns={[3, 3, 4, 9]} spacing={3}>
           {categories.map((category) => (
-            <CategoryTagButton key={category.name} getData={getData} category={category} />
+            <CategoryTagButton
+              key={category.name}
+              getData={getData}
+              category={category}
+            />
           ))}
         </SimpleGrid>
       </Center>
       <Center>
-       <Emojis emojis={currentEmojis}/>
+        <Emojis emojis={currentEmojis} />
       </Center>
       <Center>
-        <Pagination itemsPerPage={itemsPerPage} totalItems={emojis.length} paginate={paginate}/>
+        <Pagination
+          itemsPerPage={itemsPerPage}
+          totalItems={totalItems}
+          paginate={paginate}
+        />
       </Center>
     </>
   );
