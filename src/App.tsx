@@ -125,7 +125,7 @@ function App() {
         </SimpleGrid>
       </Center>
       <Center>
-        <Emojis emojis={currentEmojis} />
+        <Emojis isLoading={isLoading} emojis={currentEmojis} />
       </Center>
       <Center>
         <Pagination

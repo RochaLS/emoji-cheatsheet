@@ -1,12 +1,14 @@
-import { Container, Text } from "@chakra-ui/react";
+import { Skeleton, Text } from "@chakra-ui/react";
 
 interface EmojiAttribute {
   attribute: string;
   attributeType: string;
+  isLoading: boolean;
 }
 
 export function EmojiAttribute(props: EmojiAttribute) {
   return (
+    <Skeleton startColor="gray.600" endColor="gray.700" m={5} isLoaded={!props.isLoading}>
       <Text
         borderRadius="10px"
         m={3}
@@ -20,5 +22,6 @@ export function EmojiAttribute(props: EmojiAttribute) {
         <span style={{ fontWeight: "bold" }}>{props.attributeType}: </span>
         {props.attribute}
       </Text>
+    </Skeleton>
   );
 }

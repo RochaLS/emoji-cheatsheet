@@ -1,4 +1,4 @@
-import { SimpleGrid, Box, Flex, Center, Text } from "@chakra-ui/react";
+import { SimpleGrid, Box, Flex, Center, Text, SkeletonCircle } from "@chakra-ui/react";
 import { CategorySection } from "./CategorySection";
 import { CopyButton } from "./CopyButton";
 import { EmojiAttribute } from "./EmojiAttribute";
@@ -6,13 +6,17 @@ import { Emoji } from "../App";
 
 interface EmojisProps {
   emojis: Emoji[];
+  isLoading: boolean;
 }
 
 export function Emojis(props: EmojisProps) {
-  const { emojis } = props;
-
+  const { emojis, isLoading } = props;
   return (
-    <SimpleGrid w={["90%","90%","90%","75%"]} columns={[1, 1, 2, 2, 3]} spacing={5}>
+    <SimpleGrid
+      w={["90%", "90%", "90%", "75%"]}
+      columns={[1, 1, 2, 2, 3]}
+      spacing={5}
+    >
       {emojis.map((emoji) => (
         <Box
           key={emoji.name}
@@ -23,21 +27,33 @@ export function Emojis(props: EmojisProps) {
           m={[1, 3, 5]}
         >
           <Flex mr={2} mt={2} justify="space-between">
-            <CategorySection category={emoji.category} />
-            <CopyButton emojiString={emoji.htmlCode[0]} />
+            <CategorySection isLoading={isLoading} category={emoji.category} />
+            <CopyButton isLoading={isLoading} emojiString={emoji.htmlCode[0]} />
           </Flex>
-
           <Center>
-            <Text
-              dangerouslySetInnerHTML={{
-                __html: `${emoji.htmlCode}`,
-              }}
-              fontSize="5xl"
-            />
+            <SkeletonCircle
+              startColor="gray.600"
+              endColor="gray.700"
+              isLoaded={!isLoading}
+              h="60px"
+              w="60px"
+            >
+              <Text
+                dangerouslySetInnerHTML={{
+                  __html: `${emoji.htmlCode}`,
+                }}
+                fontSize="5xl"
+              />
+            </SkeletonCircle>
           </Center>
           <Box mb={10}>
-            <EmojiAttribute attribute={emoji.name} attributeType="Name" />
             <EmojiAttribute
+              isLoading={isLoading}
+              attribute={emoji.name}
+              attributeType="Name"
+            />
+            <EmojiAttribute
+              isLoading={isLoading}
               attribute={emoji.htmlCode[0]}
               attributeType="HTML code"
             />
