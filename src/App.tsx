@@ -18,7 +18,7 @@ function App() {
   const [emojis, setEmojis] = useState<Emoji[]>([]);
   const [filteredEmojis, setFilteredEmojis] = useState<Emoji[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const [itemsPerPage, setItemsPerPage] = useState<number>(80);
+  const [itemsPerPage, setItemsPerPage] = useState<number>(81);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   async function getData(category: string) {
@@ -31,7 +31,7 @@ function App() {
           emojis.push(response.data[i]);
         }
       }
-      console.log(emojis.length)
+      console.log(emojis)
       setEmojis(emojis);
     });
     setIsLoading(false);

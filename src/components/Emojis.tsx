@@ -40,7 +40,7 @@ export function Emojis(props: EmojisProps) {
             >
               <Text
                 dangerouslySetInnerHTML={{
-                  __html: `${emoji.htmlCode}`,
+                  __html: `${emoji.htmlCode[0]}`,
                 }}
                 fontSize="5xl"
               />
