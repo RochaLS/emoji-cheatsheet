@@ -11,8 +11,7 @@ export function EmojiAttribute(props: EmojiAttribute) {
     <Skeleton startColor="gray.600" endColor="gray.700" m={5} isLoaded={!props.isLoading}>
       <Text
         borderRadius="10px"
-        m={3}
-        p={2}
+        p={1}
         bgColor="gray.900"
         fontSize="lg"
         textAlign="center"
