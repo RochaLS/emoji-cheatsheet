@@ -24,7 +24,7 @@ export function Emojis(props: EmojisProps) {
         >
           <Flex mr={2} mt={2} justify="space-between">
             <CategorySection category={emoji.category} />
-            <CopyButton />
+            <CopyButton emojiString={emoji.htmlCode[0]} />
           </Flex>
 
           <Center>

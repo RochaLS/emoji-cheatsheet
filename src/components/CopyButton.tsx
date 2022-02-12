@@ -1,8 +1,13 @@
 import { CopyIcon } from "@chakra-ui/icons";
 import { Button, Flex } from "@chakra-ui/react";
 
-export function CopyButton() {
+interface CopyButtonProps {
+  emojiString: string;
+}
+
+export function CopyButton(props: CopyButtonProps) {
+  const { emojiString } = props;
   return (
-      <Button m={2} size="sm" colorScheme="teal" leftIcon={<CopyIcon/>}>Copy</Button>
+      <Button m={2} size="sm" colorScheme="teal" leftIcon={<CopyIcon/>} onClick={() => navigator.clipboard.writeText(emojiString)}>Copy</Button>
   )
 }
