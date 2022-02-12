@@ -27,8 +27,11 @@ function App() {
     setIsLoading(true);
     await client.get(category).then((response) => {
       for (let i = 0; i < response.data.length; i++) {
-        emojis.push(response.data[i]);
+        if (!response.data[i].name.includes("type")) {
+          emojis.push(response.data[i]);
+        }
       }
+      console.log(emojis.length)
       setEmojis(emojis);
     });
     setIsLoading(false);
