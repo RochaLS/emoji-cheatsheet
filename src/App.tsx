@@ -18,18 +18,20 @@ function App() {
   const [emojis, setEmojis] = useState<Emoji[]>([]);
   const [filteredEmojis, setFilteredEmojis] = useState<Emoji[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const [itemsPerPage, setItemsPerPage] = useState<number>(50);
+  const [itemsPerPage, setItemsPerPage] = useState<number>(80);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   async function getData(category: string) {
     category = category === "all" ? "all" : `all/category_${category}`;
     let emojis: Emoji[] = [];
+    setIsLoading(true);
     await client.get(category).then((response) => {
       for (let i = 0; i < response.data.length; i++) {
         emojis.push(response.data[i]);
       }
       setEmojis(emojis);
     });
-    console.log("here");
+    setIsLoading(false);
   }
 
   function getSearchBarValueAndFilter(value: string) {
@@ -49,7 +51,6 @@ function App() {
 
   useEffect(() => {
     getData("all");
-    console.log("here");
   }, []);
 
   // Get current emojis
@@ -112,7 +113,7 @@ function App() {
         </Heading>
       </Center>
       <Center flexDirection="column">
-        <SearchBar getSearchBarValueAndFilter={getSearchBarValueAndFilter} />
+        <SearchBar isLoading={isLoading} getSearchBarValueAndFilter={getSearchBarValueAndFilter} />
         <SimpleGrid m={6} columns={[3, 3, 4, 9]} spacing={3}>
           {categories.map((category) => (
             <CategoryTagButton

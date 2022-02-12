@@ -12,7 +12,7 @@ export function Emojis(props: EmojisProps) {
   const { emojis } = props;
 
   return (
-    <SimpleGrid w={["90%","90%","90%","75%"]} columns={[1, 1, 2, 3]} spacing={5}>
+    <SimpleGrid w={["90%","90%","90%","75%"]} columns={[1, 1, 2, 2, 3]} spacing={5}>
       {emojis.map((emoji) => (
         <Box
           key={emoji.name}

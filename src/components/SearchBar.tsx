@@ -3,12 +3,13 @@ import { useEffect, useState } from "react";
 
 interface SearchBarProps {
   getSearchBarValueAndFilter: (value: string) => void;
+  isLoading: boolean;
 }
 
 export function SearchBar(props: SearchBarProps) {
   const [searchValue, setSearchValue] = useState<string>("");
 
-  const { getSearchBarValueAndFilter } = props;
+  const { getSearchBarValueAndFilter, isLoading } = props;
 
   useEffect(() => {
     getSearchBarValueAndFilter(searchValue);
@@ -24,7 +25,7 @@ export function SearchBar(props: SearchBarProps) {
         mr={5}
         placeholder="Search for emoji..."
       />
-      <Button colorScheme="teal" size="lg">
+      <Button isLoading={isLoading} colorScheme="teal" size="lg">
         Search
       </Button>
     </HStack>
