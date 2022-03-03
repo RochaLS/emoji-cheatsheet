@@ -1,4 +1,4 @@
-import { useBreakpointValue, Button, HStack, SimpleGrid } from "@chakra-ui/react";
+import { useBreakpointValue, Button, SimpleGrid } from "@chakra-ui/react";
 
 interface PaginationProps {
   itemsPerPage: number;

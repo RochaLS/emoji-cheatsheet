@@ -1,4 +1,4 @@
-import { Center, Heading, SimpleGrid, Text, Flex } from "@chakra-ui/react";
+import { Center, Heading, SimpleGrid } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { CategoryTagButton } from "./components/CategoryTagButton";
 import { Emojis } from "./components/Emojis";
