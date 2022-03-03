@@ -1,4 +1,4 @@
-# About Emoji Cheatsheet &#128640;
+# About Emoji Cheatsheet &#128640; &#128515;
 
 Emoji cheatsheet with more than 1000 of emojis available for easy copy and consultation. 
 
