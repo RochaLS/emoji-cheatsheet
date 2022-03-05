@@ -115,7 +115,7 @@ function App() {
           Welcome to your Emoji cheatsheet! 😄
         </Heading>
       </Center>
-      <Center flexDirection="column">
+      <Center flexDirection="column" pos="sticky" top="0" bgColor="gray.900" zIndex="overlay" paddingTop="10px">
         <SearchBar isLoading={isLoading} getSearchBarValueAndFilter={getSearchBarValueAndFilter} />
         <SimpleGrid m={6} columns={[3, 3, 4, 9]} spacing={3}>
           {categories.map((category) => (
