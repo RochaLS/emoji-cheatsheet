@@ -52,6 +52,8 @@ function App() {
   // Change page
   const paginate = (page: number) => setCurrentPage(page);
 
+  const resetPage = () => setCurrentPage(1);
+
   useEffect(() => {
     getData("all");
   }, []);
@@ -123,6 +125,7 @@ function App() {
               key={category.name}
               getData={getData}
               category={category}
+              resetPage={resetPage}
             />
           ))}
         </SimpleGrid>
