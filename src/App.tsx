@@ -22,7 +22,7 @@ function App() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   async function getData(category: string) {
-    category = category === "all" ? "all" : `all/category_${category}`;
+    category = category === "all" ? "all" : `all/category/${category}`;
     let emojis: Emoji[] = [];
     setIsLoading(true);
     await client.get(category).then((response) => {
@@ -31,7 +31,7 @@ function App() {
           emojis.push(response.data[i]);
         }
       }
-      console.log(emojis)
+      console.log(emojis);
       setEmojis(emojis);
     });
     setIsLoading(false);
@@ -39,7 +39,7 @@ function App() {
 
   function getSearchBarValueAndFilter(value: string) {
     if (value !== "") {
-      console.log(emojis.length)
+      console.log(emojis.length);
       const filteredEmojis = emojis.filter((emoji) =>
         emoji.name.includes(value)
       );
@@ -69,7 +69,8 @@ function App() {
       ? filteredEmojis.slice(indexOfFirstEmoji, indexOfLastEmoji)
       : emojis.slice(indexOfFirstEmoji, indexOfLastEmoji);
 
-  const totalItems = filteredEmojis.length != 0 ? filteredEmojis.length : emojis.length;
+  const totalItems =
+    filteredEmojis.length != 0 ? filteredEmojis.length : emojis.length;
 
   const categories = [
     {
@@ -77,19 +78,19 @@ function App() {
       displayName: "All",
     },
     {
-      name: "smileys_and_people",
+      name: "smileys-and-people",
       displayName: "Smileys / People",
     },
     {
-      name: "animals_and_nature",
+      name: "animals-and-nature",
       displayName: "Animals / Nature",
     },
     {
-      name: "food_and_drink",
+      name: "food-and-drink",
       displayName: "Food and drink",
     },
     {
-      name: "travel_and_places",
+      name: "travel-and-places",
       displayName: "Travel / Places",
     },
     {
@@ -117,8 +118,18 @@ function App() {
           Welcome to your Emoji cheatsheet! 😄
         </Heading>
       </Center>
-      <Center flexDirection="column" pos="sticky" top="0" bgColor="gray.900" zIndex="overlay" paddingTop="10px">
-        <SearchBar isLoading={isLoading} getSearchBarValueAndFilter={getSearchBarValueAndFilter} />
+      <Center
+        flexDirection="column"
+        pos="sticky"
+        top="0"
+        bgColor="gray.900"
+        zIndex="overlay"
+        paddingTop="10px"
+      >
+        <SearchBar
+          isLoading={isLoading}
+          getSearchBarValueAndFilter={getSearchBarValueAndFilter}
+        />
         <SimpleGrid m={6} columns={[3, 3, 4, 9]} spacing={3}>
           {categories.map((category) => (
             <CategoryTagButton
